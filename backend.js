@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
+const mongooseUniqueValidator = require("mongoose-unique-validator")
 app.use(express.json())
 app.use(cors())
 
@@ -14,7 +16,7 @@ const usuarioSchema = mongoose.Schema({
     login: {type: String, required: true, unique: true},
     password: {type: String, required: true, unique: false}
 })
-
+usuarioSchema.plugin(mongooseUniqueValidator)
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
 async function conectarMongo() {
