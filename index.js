@@ -7,7 +7,7 @@ app.use(cors())
 
 const filme = mongoose.model( "Filme", mongoose.Schema({
     titulo: {type: String},
-    sinopse{type: String}
+    sinopse:{type: String}
 }))
 
 async function conectarMongo() {
