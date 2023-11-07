@@ -27,16 +27,20 @@ let filmes = [
 app.get('/acesso', (req, res) => res.send('acesso'))
 
 // Access Point to consult "movies list"
-app.get('/filmes', (req, res) => res.send(filmes))
+app.get('/filmes', async (req, res) => {
+    const filmes = await Filme.find()
+    res.json(filmes)
+})
 
 //Access Point to send new movies
-app.post('/filmes', (req, res) => {
-    const titulo = req.body.titulo;
-    const sinopse = req.body.sinopse;
-    const filme = {titulo: titulo, sinopse: sinopse};
-    filmes.push(filme)
-    //só para ter certeza
-    res.send(filmes)
+app.post('/filmes', async (req, res) => {
+    const titulo = req.body.titulo
+    const sinopse = req.body.sinopse
+    const filme = new Filme({titulo: titulo, sinopse: sinopse})
+    await filme.save()
+    
+    const filmes = await Filme.find()
+    res.json(filmes)
 })
 
 app.listen(3000, () => {
