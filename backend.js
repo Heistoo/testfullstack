@@ -53,12 +53,19 @@ app.post('/filmes', async (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
+    try{
     const login = req.body.login
     const password = req.body.password
-    const usuario = new Usuario({login: login, password: password})
+    const criptografada = await bcrypt.hash(password, 10)
+    const usuario = new Usuario({login: login, password: criptografada})
     const respostaMongo = await usuario.save()
     console.log(respostaMongo)
-    res.end()
+    res.status(201).end()
+    }
+    catch (e){
+        console.log(e)
+        res.status(409).end()
+    }
 })
 
 app.listen(3000, () => {
