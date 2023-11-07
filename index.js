@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 app.use(express.json())
 app.use(cors())
 
-const filme = mongoose.model( "Filme", mongoose.Schema({
+const Filme = mongoose.model( "Filme", mongoose.Schema({
     titulo: {type: String},
     sinopse:{type: String}
 }))
