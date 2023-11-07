@@ -10,6 +10,13 @@ const Filme = mongoose.model( "Filme", mongoose.Schema({
     sinopse:{type: String}
 }))
 
+const usuarioSchema = mongoose.Schema({
+    login: {type: String, required: true, unique: true},
+    password: {type: String, required: true, unique: false}
+})
+
+const Usuario = mongoose.model("Usuario", usuarioSchema);
+
 async function conectarMongo() {
     mongoose.connect(`mongodb+srv://gabe_ss:batata123@cluster0.2qfqe0p.mongodb.net/?retryWrites=true&w=majority`);
 }
@@ -41,6 +48,15 @@ app.post('/filmes', async (req, res) => {
     
     const filmes = await Filme.find()
     res.json(filmes)
+})
+
+app.post('/signup', async (req, res) => {
+    const login = req.body.login
+    const password = req.body.password
+    const usuario = new Usuario({login: login, password: password})
+    const respostaMongo = await usuario.save()
+    console.log(respostaMongo)
+    res.end()
 })
 
 app.listen(3000, () => {
