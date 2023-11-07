@@ -1,8 +1,18 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
+const mongoose = require("mongoose")
 app.use(express.json())
 app.use(cors())
+
+const filme = mongoose.model( "Filme", mongoose.Schema({
+    titulo: {type: String},
+    sinopse{type: String}
+}))
+
+async function conectarMongo() {
+    mongoose.connect(`mongodb+srv://gabe_ss:batata123@cluster0.2qfqe0p.mongodb.net/?retryWrites=true&w=majority`);
+}
 let filmes = [
     {
     titulo: "Forrest Gump - O Contador de Histórias",
@@ -29,4 +39,12 @@ app.post('/filmes', (req, res) => {
     res.send(filmes)
 })
 
-app.listen(3000, () => console.log("app up & running"))
+app.listen(3000, () => {
+    try {
+    conectarMongo();
+    console.log("Connection OK, app up & running")
+    }
+    catch (e){
+        console.log("Error: ", e);
+    }
+    });
