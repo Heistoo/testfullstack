@@ -1,3 +1,6 @@
+// conexão com o mongo
+// mongodb+srv://gabe_ss:<password>@cluster0.2qfqe0p.mongodb.net/?retryWrites=true&w=majority
+
 const express = require("express")
 const app = express()
 const cors = require("cors")
