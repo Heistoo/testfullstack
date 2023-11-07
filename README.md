@@ -3,4 +3,5 @@
 fullstack application to register & save 'name and synopsis' to DB
 
 npm install & npm start required
-then open index.html
+
+open index.html to test application
